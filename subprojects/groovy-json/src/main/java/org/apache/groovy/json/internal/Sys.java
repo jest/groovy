@@ -24,13 +24,18 @@ import java.util.regex.Pattern;
 
 class Sys {
 
-    private static final boolean is1_8OrLater;
-    private static final boolean is1_7;
-    private static final boolean is1_8;
-
+    private static final Sys sys;
     static {
-        BigDecimal v = new BigDecimal("-1");
         String sversion = System.getProperty("java.version");
+        sys = new Sys(sversion);
+    }
+
+    final boolean is1_8OrLater;
+    final boolean is1_7;
+    final boolean is1_8;
+
+    Sys(String sversion) {
+        BigDecimal v = new BigDecimal("-1");
         if (sversion.contains("_")) {
             final String[] split = sversion.split("_");
             try {
@@ -71,14 +76,14 @@ class Sys {
     }
 
     public static boolean is1_8OrLater() {
-        return is1_8OrLater;
+        return sys.is1_8OrLater;
     }
 
     public static boolean is1_7() {
-        return is1_7;
+        return sys.is1_7;
     }
 
     public static boolean is1_8() {
-        return is1_8;
+        return sys.is1_8;
     }
 }
